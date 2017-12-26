@@ -6,14 +6,15 @@ import (
 	"es_exporter/logger"
 	"flag"
 	"fmt"
-	"github.com/prometheus/client_golang/prometheus"
-	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/prometheus/common/version"
 	"net/http"
 	"net/url"
 	"os"
 	"os/signal"
 	"time"
+
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
+	"github.com/prometheus/common/version"
 )
 
 func makePrometheusGathers(c prometheus.Collector) (prometheus.Gatherer, error) {
@@ -45,7 +46,7 @@ func main() {
 	var (
 		name              = "es_exporter"
 		versionFlag       = flag.Bool("version", false, "show version")
-		esURL             = flag.String("es.url", "http://localhost:8200", "Elasticsearch address")
+		esURL             = flag.String("es.url", "http://localhost:9200", "Elasticsearch address")
 		esTimeout         = flag.Duration("es.timeout", 10*time.Second, "Timeout for trying to get stats from elasticsearch")
 		listenAddress     = flag.String("web.listen-address", ":8005", "Exporter listen on this address to push metric")
 		healthMetricsPath = flag.String("web.health-metrics-path", "/health_metrics", "Path to expose health metrics")

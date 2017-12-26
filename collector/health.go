@@ -4,10 +4,11 @@ import (
 	"encoding/json"
 	"es_exporter/common"
 	"es_exporter/logger"
-	"github.com/prometheus/client_golang/prometheus"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+
+	"github.com/prometheus/client_golang/prometheus"
 )
 
 const (
@@ -49,10 +50,7 @@ func NewClusterHealth(client *http.Client, url *url.URL) *ClusterHealth {
 		client: client,
 		url:    url,
 
-		up: prometheus.NewGauge(prometheus.GaugeOpts{
-			Name: prometheus.BuildFQName(namespace, subsystem, "up"),
-			Help: "Ping the Elasticsearch cluster successful.",
-		}),
+		up: common.UpMetric(namespace, subsystem, "cluster alive"),
 
 		metrics: []*clusterHealthMetric{
 			{
